@@ -7,19 +7,17 @@
 * **[rest parameter](#rest-parameter)**  
 * **[spread operator](#spread-operator)**  
 * **[object destructuring](#object-destructuring)**  
+* **[array destructuring](#array-destructuring)**  
+* **[template literals](#template-literals)**  
+* **[objects](#objects)**  
 * **[](#)**  
 * **[](#)**  
 * **[](#)**  
-* **[](#)**  
-* **[](#)**  
-* **[](#)**  
-* **[](#)**  
+* **[](#)** 
 
-<br>
+***
 
 ### <a name="let-const"></a>let & const
-<br>
-
 
 ```js
 for (var i = 0; i < 3; i++) {
@@ -40,7 +38,6 @@ for (let i = 0; i < 3; i++) {
 // 0 1 2
 ```
 ### <a name="arrow-functions"></a>arrow functions
-<br>
 
 ```js
 const square = x => x * x;
@@ -78,7 +75,6 @@ const person = () => {
 console.log(person.prototype) // undefined
 ```
 ### <a name="default-parameters"></a>default parameters
-<br>
 
 ```js
 function fetchOrders(count, start = 0) {
@@ -208,4 +204,141 @@ const { duck, ...otherAnimals } = dict;
 console.log('duck:', duck, 'other animals:', otherAnimals);
 
 // duck: quack other animals: {dog: "wuff", mouse: "squeak"}
+```
+
+### <a name="array-destructuring"></a>array destructuring
+
+```js
+const fib = [1, 1, 2, 3, 5, 8, 13];
+
+const [, a, b, , c] = fib;
+
+console.log(a, b, c)
+
+// 1 2 5
+```
+```js
+const line = [[10, 17], [14, 7]];
+
+const [[p1x, p1y], [p2x, p2y]] = line;
+
+console.log(p1x, p1y, p2x, p2y);
+
+// 10 17 14 7
+```
+```js
+// default
+
+const people = ['chris', 'sandra'];
+
+const [a, b, c = 'guest'] = people;
+
+console.log(a, b, c);
+
+// chris sandra guest
+```
+```js
+// rest
+
+const people = ['chris', 'sandra', 'bob'];
+
+const [a, ...others] = people;
+
+console.log(a, others);
+
+// chris ["sandra", "bob"]
+```
+``` js
+const dict = {
+  duck: 'quack',
+  dog: 'wuff',
+  mouse: 'squeak',
+  hamster: 'squeak',
+};
+
+const res = Object.entries(dict)
+  .filter(([, value]) => value === 'squeak')
+  .map(([key]) => key);
+
+console.log(res);
+
+// ["mouse", "hamster"]
+```
+```js
+const shape = {
+  type: 'segment',
+  coordinates: {
+    start: [10, 15],
+    end: [17, 15],
+  },
+};
+
+const {
+  coordinates: {
+    start: [startX, startY],
+    end: [endX, endY],
+  },
+} = shape;
+
+console.log(startX, startY, endX, endY);
+
+// 10 15 17 15
+```
+
+### <a name="template-literals"></a>template literals    
+```js
+const user = 'Bob';
+const num = 17;
+const txt = `Hello, ${user} you have ${num} letters in your box`;
+```
+
+### <a name="objects"></a>objects
+
+```js
+const x = 10;
+const y = 30;
+
+const point = { x, y };
+
+console.log(point)
+
+// {x: 10, y: 30}
+```
+```js
+const prefix = '_id_';
+
+const data = {
+  [prefix + 'name']: 'Bob',
+  [prefix + 'year']: 23,
+};
+
+console.log(data);
+
+// {_id_name: "Bob", _id_year: 23}
+```
+```js
+const defaults = {
+  host: 'localhost',
+  dbName: 'blog',
+  user: 'admin',
+};
+
+const opts = {
+  user: 'John',
+  password: 12345,
+};
+
+const res = Object.assign({}, defaults, opts);
+
+console.log(res);
+
+// {host: "localhost", dbName: "blog", user: "John", password: 12345}
+```
+```js
+const person = {
+  name: 'Bob',
+  friends: ['Mark', 'Jacobs']
+}
+
+const shallowCopy = Object.assign({}, person);
 ```
