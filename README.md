@@ -10,8 +10,8 @@
 * **[array destructuring](#array-destructuring)**  
 * **[template literals](#template-literals)**  
 * **[objects](#objects)**  
-* **[](#)**  
-* **[](#)**  
+* **[objects spread operator](#objects-spread-operator)**  
+* **[prototypes](#prototypes)**  
 * **[](#)**  
 * **[](#)** 
 
@@ -341,4 +341,61 @@ const person = {
 }
 
 const shallowCopy = Object.assign({}, person);
+```
+
+### <a name="objects-spread-operator"></a>objects spread operator
+
+```js
+const defaults = {
+  host: 'localhost',
+  dbName: 'blog',
+  user: 'admin',
+};
+
+const opts = {
+  user: 'John',
+  password: 12345,
+};
+
+const port = 8080;
+
+const result = { ...defaults, ...opts, port, connect() {} };
+
+/* {
+  host: 'localhost',
+  dbName: 'blog',
+  user: 'John',
+  password: 12345,
+  port: 8080,
+  connect: [Function: connect]
+}
+*/
+```
+
+### <a name="prototypes"></a>prototypes
+
+```js
+// 1. Object.setPrototypeOf
+// 2. Object.create
+// 3. new
+
+function Animal(name, voice) {
+  this.name = name;
+  this.voice = voice;
+}
+
+Animal.prototype.say = function () {
+  console.log(this.name, 'goes', this.voice);
+};
+
+const dog = new Animal('Dog', 'woof');
+const cat = new Animal('Cat', 'meow');
+
+dog.say();
+cat.say();
+```
+```js
+// Create object without prototype
+
+const obj = Object.create(null)
 ```
