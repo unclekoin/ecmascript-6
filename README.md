@@ -12,8 +12,7 @@
 * **[objects](#objects)**  
 * **[objects spread operator](#objects-spread-operator)**  
 * **[prototypes](#prototypes)**  
-* **[](#)**  
-* **[](#)** 
+* **[classes](#classes)**  
 
 ***
 
@@ -398,4 +397,30 @@ cat.say();
 // Create object without prototype
 
 const obj = Object.create(null)
+```
+### <a name="classes"></a>classes
+
+```js
+class Animal {
+  constructor(name, voice) {
+    this.name = name;
+    this.voice = voice;
+  }
+
+  say() {
+    console.log(this.name, 'goes', this.voice);
+  }
+}
+
+class Bird extends Animal {
+  constructor(name, voice, canFly) {
+    super(name, voice);
+    this.canFly = canFly;
+  }
+}
+
+// duck -> Bird.prototype -> Animal.prototype -> Object.prototpe -> null
+const duck = new Bird('Duck', 'quack', true);
+
+duck.say();
 ```
